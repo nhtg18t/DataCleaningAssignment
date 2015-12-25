@@ -1,0 +1,56 @@
+---
+title: "Cleaning Data Code Book"
+author: "Coursera"
+date: "Friday, December 25, 2015"
+output: html_document
+---
+###Human Activity Recognition Using Smartphones Dataset###
+One of the most exciting areas in all of data science right now is wearable computing.  In the assignment, data from 
+accelerometers from Samsung Galaxy S smartphone is used.  A full description of the data is available in the link below:
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
+
+The complete reference to the dataset is in the following location [1]
+
+
+This is an R Markdown document, describing the steps taken to clean and tidy the dataset.
+The goal is to use the data in the above mentioned website, and create a tidy dataset, as fully described in the 
+assignment description location [2].
+
+##Brief Description of Experiment##
+The experiment entails 30 persons (referred to as "subjects"),performing 6 different physical activities, like walking, standing, etc.  The smartphone records the various moments, accelerations and velocities during these activities, and the same are stored in separate files.  The list of parameters stored referred to as "features". A more detailed description of the features is provided in the file features_info.txt
+
+The steps in creating the tidy data are as follows:
+
+      - Set the current working directory to the location where the data from the web is stored.
+      - There are three files in the sub-directories "Test" and "Train", which are needed for this work
+            - X_train.txt and X_test.txt : These store the data of measurements of "features"
+            - y_train.txt and y_test.txt : These files store the various activities, in coded label numbers
+            - subject_train.txt and subject_test.txt : These files store the subjects/persons ids.
+      - There is a file features.txt which stores the names of the measurement parameters.
+      - There is a file activity_labels.txt, which stores the descriptive labels for the activities.
+      
+Now the activities associated with processing the data:
+
+      - The above mentioned files are read into distinct dataframes
+      - The features data is used to label the columns of data in the test and train datasets
+      - Likewise, the columns of the activity labels is appropriately labeled
+      - dplyr package is loaded, and is used for all data manipulation.
+      - Since the columns of interest are only the ones that have "mean" or "std" appropriate selects are executed.
+      - use cbind to bind the subject, activity and features columns into one dataframe.
+      - use merge to merge activity labels dataframe with the above dataframe, to include descriptive activity in df.
+      - now use rbind to bind the test and train dataframes, to create one composite dataframe, Final.Dataset
+
+The dataframe so created above meets all the tidy data principles, and use it to manipulate and generate the desired summary.
+
+      - Create the summary table, which store the mean of each feature, by subject and by activity.
+      - use write table to export the summary table into a text file named run_analysis.txt
+      
+      
+
+
+###REFERENCES###
+[1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
+
+[2] https://class.coursera.org/getdata-035/human_grading/view/courses/975119/assessments/3/submissions
+
